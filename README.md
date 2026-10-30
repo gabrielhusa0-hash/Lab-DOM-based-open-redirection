@@ -22,7 +22,7 @@ Regulární výraz (/url=(https?:\/\/.+)/): Skript v URL adrese aktivně vyhled�
 
 Přesměrování (location.href): Jakmile skript tento odkaz v parametru najde, vezme ho a okamžitě na něj uživatele přesměruje (location.href = returnUrl[1]). Pokud tam žádný takový odkaz není, vrátí uživatele na hlavní stránku (/).
 
-#🛠️ Postup
+🛠️ Postup
 #Zjištění adresy laboratoře: Vrátil jsem se zpět na hlavní stránku (Home) a zkopíroval jsem si adresu naší laboratoře:
 https://0aee002e04b48d8682bc7ab900ca009f.web-security-academy.net/
 
@@ -30,3 +30,14 @@ Sestavení finálního payloadu: Využil jsem strukturu URL pro konkrétní př�
 
 Finální podoba URL v prohlížeči:
 https://0aee002e04b48d8682bc7ab900ca009f.web-security-academy.net/post?postId=9&url=https://0aee002e04b48d8682bc7ab900ca009f.web-security-academy.net/
+
+
+Jak zranitelnost funguje v praxi
+ 
+Čtení dat z DOMu (location): Skript si vytahuje kompletní URL adresu přímo z prohlížeče oběti (location).
+
+Extrakce pomocí regulárního výrazu (/url=(https?:\/\/.+)/): Skript aktivně vyhledává parametr url=, za kterým následuje libovolná webová adresa začínající na http:// nebo https://.
+
+Absence jakékoliv validace: Kód v aplikaci vůbec nekontroluje, kam nalezená adresa vede. Nezjišťuje, zda jde o interní doménu aplikace, nebo o cizí server útočníka (phishing).
+
+Slepé přesměrování (location.href): Jakmile skript adresu v parametru najde, bez váhání na ni uživatele přesměruje (location.href = returnUrl[1]).
